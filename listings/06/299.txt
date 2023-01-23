@@ -1,0 +1,4 @@
+bool equal(InputIterator first1, InputIterator last1,
+  InputIterator first2);
+bool equal(InputIterator first1, InputIterator last1,
+  InputIterator first2, BinaryPredicate binary_pred);

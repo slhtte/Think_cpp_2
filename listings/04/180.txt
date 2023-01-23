@@ -1,0 +1,9 @@
+ class DataBase {
+    public:
+      // Поиск записи на диске
+      size_t query(size_t ssn);
+      // Выборка структуры Person по номеру записи
+      Person retrieve(size_t rn);
+      // Сохранение записи на диске
+      void add(const Person& p);
+    };

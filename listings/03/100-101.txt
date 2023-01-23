@@ -1,0 +1,28 @@
+//: C03:Replace.cpp
+#include <cassert>
+#include <cstddef>  // Aey size_t
+#include <string>
+using namespace std;
+
+void replaceChars(string& modifyMe,
+  const string& findMe, const string& newChars) {
+  // Найти в modifyMe подстроку findMe
+  // начиная с позиции 0.
+  size_t i = modifyMe.find(findMe, 0);
+  // Найдена ли заменяемая подстрока?
+  if (i != string::npos)
+    // Заменить найденную подстроку содержимым newChars
+    modifyMe.replace(i, findMe.size(), newChars);
+}
+
+int main() {
+  string bigNews =
+   "I thought I saw Elvis in a UFO. "
+   "I have been working too hard.";
+  string replacement("wig");
+  string findMe("UFO");
+  // Найти и заменить в bigNews подстроку "UFO":
+  replaceChars(bigNews, findMe, replacement);
+  assert(bigNews == "I thought I saw Elvis in a "
+         "wig. I have been working too hard.");
+} ///:~

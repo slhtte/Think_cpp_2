@@ -1,0 +1,18 @@
+//: C11:Display.h
+// Предотвращение коллизий при выводе
+#ifndef DISPLAY_H
+#define DISPLAY_H
+#include <iostream>
+#include <sstream>
+#include "zthread/Mutex.h"
+#include "zthread/Guard.h"
+
+class Display {          // Один объект совместно используется
+  ZThread::Mutex iolock; // всеми потоками ввода-вывода.
+public:
+  void output(std::ostringstream& os) {
+    ZThread::Guard<ZThread::Mutex> g(iolock);
+    std::cout << os.str();
+  }
+};
+#endif // DISPLAY_H ///:~

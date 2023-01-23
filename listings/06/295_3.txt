@@ -1,0 +1,4 @@
+ForwardIterator min_element(ForwardIterator first,
+  ForwardIterator last);
+ForwardIterator min_element(ForwardIterator first,
+  ForwardIterator last, BinaryPredicate binary_pred);

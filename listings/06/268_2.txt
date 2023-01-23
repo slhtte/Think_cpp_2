@@ -1,0 +1,8 @@
+class gt_n : public unary_function<int, bool> {
+  int value;
+public:
+  gt_n(int val) : value(val) {}
+  bool operator()(int n) {
+    return n > value;
+  }
+};

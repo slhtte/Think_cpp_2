@@ -1,0 +1,14 @@
+M in B
+B from G
+M in C
+C from G
+M in A
+A from E
+M in E
+E from G
+M in D
+D from F
+M in F
+F from G
+M in G
+G from main

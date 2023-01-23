@@ -1,0 +1,28 @@
+//: C03:StrSize.cpp
+#include <string>
+#include <iostream>
+using namespace std;
+
+int main() {
+  string bigNews("I saw Elvis in a UFO. ");
+  cout << bigNews << endl;
+  // Сколько данных фактически получено?
+  cout << "Size = " << bigNews.size() << endl;
+  // Сколько данных можно сохранить без перераспределения памяти?
+  cout << "Capacity = "
+    << bigNews.capacity() << endl;
+  // Вставка строки в bigNews в позицию перед bigNews[1]
+  bigNews.insert(1, " thought I");
+  cout << bigNews << endl;
+  cout << "Size = " << bigNews.size() << endl;
+  cout << "Capacity = "
+    << bigNews.capacity() << endl;
+  // Резервирование достаточного объема памяти
+  bigNews.reserve(500);
+  // Присоединение в конец строки
+  bigNews.append("I've been working too hard.");
+  cout << bigNews << endl;
+  cout << "Size = " << bigNews.size() << endl;
+  cout << "Capacity = "
+    << bigNews.capacity() << endl;
+} ///:~

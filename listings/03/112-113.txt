@@ -1,0 +1,34 @@
+//: C03:CompStr.h
+#ifndef COMPSTR_H
+#define COMPSTR_H
+#include <string>
+#include "../TestSuite/Test.h"
+using std::string;
+
+class CompStrTest : public TestSuite::Test {
+public:
+  void run() {
+    // Сравниваемые строки
+    string s1("This");
+    string s2("That");
+    test_(s1 == s1);
+    test_(s1 != s2);
+    test_(s1 > s2);
+    test_(s1 >= s2);
+    test_(s1 >= s1);
+    test_(s2 < s1);
+    test_(s2 <= s1);
+    test_(s1 <= s1);
+  }
+};
+#endif // COMPSTR_H ///:~
+
+//: C03:CompStr.cpp
+//{L} ../TestSuite/Test
+#include "CompStr.h"
+
+int main() {
+  CompStrTest t;
+  t.run();
+  return t.report();
+} ///:~

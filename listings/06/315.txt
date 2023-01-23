@@ -1,0 +1,24 @@
+//: C06:ForEach.cpp
+// Использование алгоритма STL for_each()
+//{L} Counted
+#include <algorithm>
+#include <iostream>
+#include "Counted.h"
+using namespace std;
+
+// Объект функции:
+template<class T>
+class DeleteT {
+public:
+  void operator()(T* x) { delete x; }
+};
+
+// Шаблонная функция:
+template <class T> void wipe(T* x) { delete x; }
+
+int main() {
+  CountedVector B("two");
+  for_each(B.begin(),B.end(),DeleteT<Counted>());
+  CountedVector C("three");
+  for_each(C.begin(), C.end(), wipe<Counted>);
+} ///:~

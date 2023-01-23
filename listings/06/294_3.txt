@@ -1,0 +1,5 @@
+ForwardIterator1 search(ForwardIterator1 first1, ForwardIterator1 last1,
+  ForwardIterator2 first2, ForwardIterator2 last2);
+ForwardIterator1 search(ForwardIterator1 first1, ForwardIterator1 last1,
+  ForwardIterator2 first2, ForwardIterator2 last2,
+  BinaryPredicate binary_pred);

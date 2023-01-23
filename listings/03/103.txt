@@ -1,0 +1,19 @@
+//: C03:AddStrings.cpp
+#include <string>
+#include <cassert>
+using namespace std;
+
+int main() {
+  string s1("This ");
+  string s2("That ");
+  string s3("The other ");
+  //  онкатенаци€ строк оператором +
+  s1 = s1 + s2;
+  assert(s1 == "This That ");
+  // ƒругой способ конкатенации строк
+  s1 += s3;
+  assert(s1 == "This That The other ");
+  // ¬ правой части может производитьс€ индексирование строки
+  s1 += s3 + s3[4] + "ooh lala";
+  assert(s1 == "This That The other The other oooh lala");
+} ///:~

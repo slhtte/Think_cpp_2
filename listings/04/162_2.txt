@@ -1,0 +1,3 @@
+ostream& ostream::operator<<(ostream& (*pf)(ostream&)) {
+  return pf(*this);
+}

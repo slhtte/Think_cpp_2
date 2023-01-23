@@ -1,0 +1,11 @@
+template<class charT, class traits>
+std::basic_ostream<charT, traits>&
+operator<<(std::basic_ostream<charT, traits>& os, const Date& d) {
+  charT fillc = os.fill(os.widen('0'));
+  charT dash = os.widen('-');
+  os << setw(2) << d.month << dash
+     << setw(2) << d.day << dash
+     << setw(4) << d.year;
+  os.fill(fillc);
+  return os;
+}

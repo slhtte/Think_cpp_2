@@ -1,0 +1,7 @@
+// Заголовочный файл <iterator>
+back_insert_iterator<Container>
+  back_inserter(Container& x);
+front_insert_iterator<Container>
+  front_inserter(Container& x);
+insert_iterator<Container>
+  inserter(Container& x, Iterator i);

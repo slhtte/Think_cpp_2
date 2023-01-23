@@ -1,0 +1,53 @@
+//: C04:HTMLStripper2.cpp {RunByHand}
+//{L} ../C03/ReplaceAll
+// Фильтр для удаления тегов и маркеров HTML
+#include <cstddef>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include "../С03/ReplaceAll.h"
+#include "../require.h"
+using namespace std;
+
+string& stripHTMLTags(string& s) throw(runtime_error) {
+  size_t leftPos;
+  while ((leftPos = s.find('<')) != string::npos) {
+    size_t rightPos = s.find('>', leftPos+1);
+    if (rightPos == string::npos) {
+      ostringstream msg;
+      msg << "Incomplete HTML tag starting in position "
+          << leftPos;
+      throw runtime_error(msg.str());
+    }
+    s.erase(leftPos, rightPos - leftPos + 1);
+  }
+  // Удаление всех специальных символов HTML
+  replaceAll(s, "&lt;", "<");
+  replaceAll(s, "&gt;", ">");
+  replaceAll(s, "&amp;", "&");
+  replaceAll(s, "&nbsp;", " ");
+  // И т. д.
+  return s;
+}
+
+int main(int argc, char* argv[]) {
+  requireArgs(argc, 1,
+    "usage: HTMLStripper2 InputFile");
+  ifstream in(argv[1]);
+  assure(in, argv[1]);
+  // Прочитать весь файл в строку и удалить HTML
+  ostringstream ss;
+  ss << in.rdbuf();
+  try {
+    string s = ss.str();
+    cout << stripHTMLTags(s) << endl;
+    return EXIT_SUCCESS;
+  }
+  catch (runtime_error& x) {
+    cout << x.what() << endl;
+    return EXIT_FAILURE;
+  }
+} ///:~

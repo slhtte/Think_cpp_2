@@ -1,0 +1,5 @@
+pair<InputIterator1, InputIterator2> mismatch(InputIterator1 first1,
+  InputIterator1 last1, InputIterator2 first2);
+pair<InputIterator1, InputIterator2> mismatch(InputIterator1 first1, 
+  InputIterator1 last1, InputIterator2 first2,
+  BinaryPredicate binary_pred); 

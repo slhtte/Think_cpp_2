@@ -1,0 +1,74 @@
+//: C10:BuildBicycles.cpp
+//{L} Bicycle
+// Паттерн Строитель.
+#include <cstddef>
+#include <iostream>
+#include <map>
+#include <vector>
+#include "Bicycle.h"
+#include "../purge.h"
+using namespace std;
+
+// Сборка велосипеда с использованием конкретного строителя.
+Bicycle* buildMeABike(
+  BicycleTechnician& t, BicycleBuilder* builder) {
+  t.setBuilder(builder);
+  t.construct();
+  Bicycle* b = builder->getProduct();
+  cout << "Built a " << builder->getBikeName() << endl;
+  return b;
+}
+
+int main() {
+  // Заказ на велосипеды
+  map <string, size_t> order;
+  order["mountain"] = 2;
+  order["touring"] = 1;
+  order["racing"] = 3;
+
+  // Сборка велосипедов
+  vector<Bicycle*> bikes;
+  BicycleBuilder* m = new MountainBikeBuilder;
+  BicycleBuilder* t = new TouringBikeBuilder;
+  BicycleBuilder* r = new RacingBikeBuilder;
+  BicycleTechnician tech;
+  map<string, size_t>::iterator it = order.begin();
+  while(it != order.end()) {
+    BicycleBuilder* builder;
+    if(it->first == "mountain")
+      builder = m;
+    else if(it->first == "touring")
+      builder = t;
+    else if(it->first == "racing")
+      builder = r;
+    for(size_t i = 0; i < it->second; ++i)
+      bikes.push_back(buildMeABike(tech, builder));
+    ++it;
+  }
+  delete m;
+  delete t;
+  delete r;
+
+  // Вывод информации о велосипедах
+  for(size_t i = 0; i < bikes.size(); ++i)
+    cout << "Bicycle: " << *bikes[i] << endl;
+  purge(bikes);
+}
+
+/* Вывод:
+Built a MountainBike
+Built a MountainBike
+Built a RacingBike
+Built a RacingBike
+Built a RacingBike
+Built a TouringBike
+Bicycle: {
+  Frame Wheel Seat Derailleur Handlebar Sprocket Shock }
+Bicycle: {
+  Frame Wheel Seat Derailleur Handlebar Sprocket Shock }
+Bicycle: { Frame Wheel Seat Handlebar Sprocket }
+Bicycle: { Frame Wheel Seat Handlebar Sprocket }
+Bicycle: { Frame Wheel Seat Handlebar Sprocket }
+Bicycle: {
+  Frame Wheel Seat Derailleur Handlebar Sprocket Rack }
+*/ ///:~

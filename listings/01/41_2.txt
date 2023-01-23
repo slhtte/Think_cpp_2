@@ -1,0 +1,3 @@
+Allocating TraceHeap object on the heap at address 8930040
+5
+Deleting Traceheap object at address 8930040

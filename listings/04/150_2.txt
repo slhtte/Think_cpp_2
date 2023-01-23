@@ -1,0 +1,4 @@
+type an int, a float and a string: 10 20.5 the end
+integer = 10
+float = 20.5
+string = the end

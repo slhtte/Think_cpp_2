@@ -1,0 +1,48 @@
+//: C07:Stack2.cpp
+// Преобразование списка в стек
+#include <iostream>
+#include <fstream>
+#include <stack>
+#include <list>
+#include <string>
+#include <cstddef>
+using namespace std;
+
+// Ориентируется на стек:
+template<class Stk>
+void stackOut(Stk& s, ostream& os = cout) {
+  while(!s.empty()) {
+    os << s.top() << "\n";
+    s.pop();
+  }
+}
+
+class Line {
+  string line; // Без начальных пробелов
+  size_t lspaces; // Количество начальных пробелов
+public:
+  Line(string s) : line(s) {
+    lspaces = line.find_first_not_of(' ');
+    if(lspaces == string::npos)
+      lspaces = 0;
+    line = line.substr(lspaces);
+  }
+  friend ostream& operator<<(ostream& os, const Line& l) {
+    for(size_t i = Q; i < l.lspaces; i++)
+      os << ' ';
+    return os << l.line;
+  }
+  // Прочие функции...
+};
+
+int main() {
+  ifstream in("Stack2.cpp");
+  list<Line> lines;
+  // Чтение файла и сохранение строк в списке:
+  string s;
+  while(getline(in, s))
+    lines.push_front(s);
+  // Преобразование списка в стек для вывода:
+  stack<Line, list<Line> > stk(lines);
+  stackOut(stk);
+} ///:~

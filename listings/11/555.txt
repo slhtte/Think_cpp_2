@@ -1,0 +1,31 @@
+//: C11:TemporaryUnlocking.cpp
+// Временное снятие блокировки
+// с использованием другого стража.
+//{L} ZThread
+#include "zthread/Thread.h"
+#include "zthread/Mutex.h"
+#include "zthread/Guard.h"
+using namespace ZThread;
+
+class TemporaryUnlocking {
+  Mutex lock;
+public:
+  void f() {
+    Guard<Mutex> g(lock);
+    // Установление блокировки
+    // ...
+    {
+      Guard<Mutex, UnlockedScope> h(g);
+      // Снятие блокировки
+      // ...
+      // Установление блокировки
+    }
+    // ...
+    // Снятие блокировки
+  }
+};
+
+int main() {
+  TemporaryUnlocking t;
+  t.f();
+} ///:~

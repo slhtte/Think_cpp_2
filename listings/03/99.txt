@@ -1,0 +1,9 @@
+saw Elvis in a UFO.
+Size = 22
+Capacity = 31
+I thought I saw Elvis in a UFO.
+Size = 32
+Capacity = 47
+I thought I saw Elvis in a UFO. I've been working too hard.
+Size = 59
+Capacity = 511

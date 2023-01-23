@@ -1,0 +1,4 @@
+fmtflags ios::flags(fmtflags newflags);
+fmtflags ios::setf(fmtflags ored_flag);
+fmtflags ios::unsetf(fmtflags clear_flag);
+fmtflags ios::setf(fmtflags bits, fmtflags field);

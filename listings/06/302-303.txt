@@ -1,0 +1,9 @@
+ForwardIterator unique(ForwardIterator first,
+  ForwardIterator last);
+ForwardIterator unique(ForwardIterator first,
+  ForwardIterator last, BinaryPredicate binary_pred);
+OutputIterator unique_copy(InputIterator first,
+  InputIterator last, OutputIterator result);
+OutputIterator unique_copy(InputIterator first,
+  InputIterator last, OutputIterator result,
+  BinaryPredicate binary_pred);

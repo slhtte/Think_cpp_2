@@ -1,0 +1,6 @@
+A1: Water lawn
+A2: Feed dog
+B1: Feed cat
+B7: Feed bird
+C3: Mow lawn
+C4: Empty trash

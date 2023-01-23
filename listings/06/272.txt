@@ -1,0 +1,44 @@
+x:
+4 8 18 36 22 6 29 19 25 47
+y:
+4 14 23 9 11 32 13 15 44 30
+After testBinary(x, y, r, plus<int>()):
+8 22 41 45 33 38 42 34 69 77
+After testBinary(x, y, r, minus<int>()):
+0 -6 -5 27 11 -26 16 4 -19 17
+After testBinary(x, y, r, multiplies<int>()):
+16 112 414 324 242 192 377 285 1100 1410
+After testBinary(x, y, r, divides<int>()):
+1 0 0 4 2 0 2 1 0 1
+After testBinary(x, y, r, limit<int>()):
+0 8 18 0 0 6 3 4 25 17
+After testUnary(x, r, negate<int>()):
+-4 -8 -18 -36 -22 -6 -29 -19 -25 -47
+After testBinary(x, y, br, equal_to<int>()):
+1 0 0 0 0 0 0 0 0 0
+After testBinary(x, y, br, not_equal_to<int>()):
+0 1 1 1 1 1 1 1 1 1
+After testBinary(x, y, br, greater<int>()):
+0 0 0 1 1 0 1 1 0 1
+After testBinary(x, y, br, less<int>()):
+0 1 1 0 0 1 0 0 1 0
+After testBinary(x, y, br, greater_equal<int>()):
+1 0 0 1 1 0 1 1 0 1
+After testBinary(x, y, br, less_equal<int>()):
+1 1 1 0 0 1 0 0 1 0
+After testBinary(x, y, br, not2(greater_equal<int>())):
+0 1 1 0 0 1 0 0 1 0
+After testBinary(x,y,br,not2(less_equal<int>())):
+0 0 0 1 1 0 1 1 0 1
+b1:
+0 1 1 0 0 0 1 0 1 1
+b2:
+0 1 1 0 0 0 1 0 1 1
+After testBinary(b1, b2, br, logical_and<int>()):
+0 1 1 0 0 0 1 0 1 1
+After testBinary(b1, b2, br, logical_or<int>()):
+0 1 1 0 0 0 1 0 1 1
+After testUnary(b1, br, logical_not<int>()):
+1 0 0 1 1 1 0 1 0 0
+After testUnary(b1, br, not1(logical_not<int>())):
+0 1 1 0 0 0 1 0 1 1

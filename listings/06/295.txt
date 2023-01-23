@@ -1,0 +1,10 @@
+void replace(ForwardIterator first, ForwardIterator last, 
+  const T& old_value, const T& new_value);
+void replace_if(ForwardIterator first, ForwardIterator last,
+  Predicate pred, const T& new_value);
+OutputIterator replace_copy(InputIterator first,
+  InputIterator last, OutputIterator result, const T& old_value,
+  const T& new_value);
+OutputIterator replace_copy_if(InputIterator first,
+  InputIterator last, OutputIterator result, Predicate pred,
+  const T& new_value);

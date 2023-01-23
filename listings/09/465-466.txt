@@ -1,0 +1,25 @@
+//: C09:Vendor.h
+// Заголовок класса, предоставленный разработчиком.
+// В вашам распоряжении имеется только он
+// и откомпилированный файл Vendor.obj.
+#ifndef VENDOR_H
+#define VENDOR_H
+
+class Vendor {
+public:
+  virtual void v() const;
+  void f() const;  // Может, функцию нужно сделать виртуальной...
+  ~Vendor();    // Деструктор не виртуален! 
+};
+
+class Vendor1 : public Vendor {
+public:
+  void v() const;
+  void f() const;
+  ~Vendor1();
+};
+
+void A(const Vendor&);
+void B(const Vendor&);
+// И т. д.
+#endif // VENDOR_H ///:~

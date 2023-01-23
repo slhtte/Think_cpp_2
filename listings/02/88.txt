@@ -1,0 +1,3 @@
+hello
+Attempt to delete unknown pointer: 0x1
+No user memory leaks!

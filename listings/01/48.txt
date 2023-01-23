@@ -1,0 +1,3 @@
+caught an A from f
+caught a bad_exception from g
+terminate called

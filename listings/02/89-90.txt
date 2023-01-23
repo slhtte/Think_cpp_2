@@ -1,0 +1,80 @@
+// N02:BuggedSearch.cpp {-xo}
+    //{L} ../TestSuite/Test
+    #include "../TestSuite/Test.h"
+    #include <cstdlib>
+    #include <ctime>
+    #include <cassert>
+    #include <fstream>
+    using namespace std;
+
+    // Функция содержит ошибки
+    int* binarySearch(int* beg, int* end, int what) {
+      while(end - beg != 1) {
+        if(*beg == what) return beg;
+        int mid = (end - beg) / 2;
+        if(what <= beg[mid]) end = beg + mid;
+        else beg = beg + mid;
+      }
+      return 0;
+    }
+
+    class BinarySearchTest : public TestSuite::Test {
+      enum { sz = 10 };
+      int* data;
+      int max; // Наибольшее число
+      int current; // Текущее число, не содержащееся в массиве.
+                   // Используется notContained()
+      // Поиск следующего числа, не содержащегося в массиве
+      int notContained() {
+        while(data[current] + 1 == data[current + 1])
+         current++;
+        if(current >= sz) return max + 1;
+        int retValue = data[current++] + 1;
+        return retValue;
+      }
+      void setData() {
+        data = new int[sz];
+        assert(!max);
+        // Iaai? aoiaiuo aaiiuo. I?iioneaai iaeioi?ua cia?aiey
+        // eae aey ?aoiuo, oae e aey ia?aoiuo eiaaenia.
+        for(int i = 0; i < sz;
+            rand() % 2 == 0 ? max += 1 : max += 2)
+          data[i++] = max;
+      }
+      void testInBound() {
+        // Проверка для четных и нечетных позиций,
+        // присутствующих и отсутствующих в массиве.
+        for(int i = sz; --i >=0;)
+          test_(binarySearch(data, data + sz, data[i]));
+        for(int i = notContained(); i < max;
+                i = notContained())
+          test_(!binarySearch(data, data + sz, i));
+      }
+      void testOutBounds() {
+        // Проверка нижних значений
+        for(int i = data[0]; --i > data[0] - 100;)
+          test_(!binarySearch(data, data + sz, i));
+        // Проверка верхних значений
+        for(int i = data[sz - 1];
+            ++i < data[sz -1] + 100;)
+          test_(!binarySearch(data, data + sz, i));
+      }
+    public:
+      BinarySearchTest() {
+        max = current = 0;
+      }
+      void run() {
+        srand(time(0));
+        setData();
+        testInBound();
+        testOutBounds();
+        delete [] data;
+      }
+    };
+
+    int main() {
+       srand(time(0));
+       BinarySearchTest t;
+       t.run();
+       return t.report();
+    } ///:~

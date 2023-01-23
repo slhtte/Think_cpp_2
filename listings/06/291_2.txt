@@ -1,0 +1,4 @@
+BidirectionalIterator partition(BidirectionalIterator first, 
+  BidirectionalIterator last, Predicate pred);
+BidirectionalIterator stable_partition(BidirectionalIterator first,
+  BidirectionalIterator last, Predicate pred);

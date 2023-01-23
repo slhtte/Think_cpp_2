@@ -1,0 +1,69 @@
+//: C06:NString.h
+// "Нумерованная строка", отслеживающая номер вхождения
+// данного слова
+#ifndef NSTRING_H
+#define NSTRING_H
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <utility>
+#include <vector>
+
+typedef std::pair<std::string, int> psi;
+ 
+// Сравнение только по первому элементу
+bool operator==(const psi& l, const psi& r) {
+  return l.first == r.first;
+}
+ 
+class NString {
+  std::string s;
+  int thisOccurrence;
+  // Отслеживание количества вхождений:
+  typedef std::vector<psi> vp;
+  typedef vp::iterator vpit;
+  static vp words;
+  void addString(const std::string& x) {
+    psi p(x, 0);
+    vpit it = std::find(words.begin(), words.end(), p);
+    if(it != words.end())
+      thisOccurrence = ++it->second;
+    else {
+      thisOccurrence = 0;
+      words.push_back(p);
+    }
+  }
+public:
+  NString() : thisOccurrence(0) {}
+  NString(const std::string& x) : s(x) { addString(x); }
+  NString(const char* x) : s(x) { addString(x); }
+  // Автоматически сгенерированные оператор =
+  // и копирующий конструктор здесь подойдут.
+  friend std::ostream& operator<<(
+    std::ostream& os, const NString& ns) {
+    return os << ns.s << " [" << ns.thisOccurrence << "]";
+  }
+  // Оператор необходим для сортировки. Сравнение
+  // производится только по строкам, без учета счетчиков вхождений:
+  friend bool
+  operator<(const NString& l, const NString& r) {
+    return l.s < r.s;
+  }
+  friend
+  bool operator==(const NString& l, const NString& r) {
+    return l.s == r.s;
+  }
+  // Для сортировки с greater<NString>:
+  friend bool
+  operator>(const NString& l, const NString& r) {
+    return l.s > r.s;
+  }
+  // Для прямого обращения к строке:
+  operator const std::string&() const {return s;}
+};
+ 
+// Поскольку NString::vp является шаблоном, а мы используем
+// модель с включением, шаблон должен определяться
+// в этом заголовочном файле.
+NString::vp NString::words;
+#endif // NSTRING_H ///:~

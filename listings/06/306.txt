@@ -1,0 +1,6 @@
+pair<ForwardIterator, ForwardIterator>
+equal_range(ForwardIterator first, ForwardIterator last,
+  const T& value);
+pair<ForwardIterator, ForwardIterator>
+equal_range(ForwardIterator first, ForwardIterator last,
+  const T& value, StrictWeakOrdering binary_pred);

@@ -1,0 +1,11 @@
+struct tm {
+  int tm_sec;   // 0-59 секунд
+  int tm_min;   // 0-59 минут
+  int tm_hour;  // 0-23 часов
+  int tm_mday;  // День месяца
+  int tm_mon;   // 0-11 месяцев
+  int tm_year;  // Прошло лет с 1900
+  int tm_wday;  // Воскресенье == 0 и т. д.
+  int tm_yday;  // 0-365, день года
+  int tm_isdst; // Летнее время?
+};

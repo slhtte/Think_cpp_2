@@ -1,0 +1,128 @@
+//: C04:Format.cpp
+// Функции форматирования
+#include <fstream>
+#include <iostream>
+#include "../require.h"
+using namespace std;
+#define D(A) T << #A << endl; A
+
+int main() {
+  ofstream T("format.out");
+  assure(T);
+  D(int i = 47;)
+  D(float f = 2300114.414159;)
+  const char* s = "Is there any more?";
+
+  D(T.setf(ios::unitbuf);)
+  D(T.setf(ios::showbase);)
+  D(T.setf(ios::uppercase | ios::showpos);)
+  D(T << i << endl;) // По умолчанию используется десятичная система (dec)
+  D(T.setf(ios::hex, ios::basefield);)
+  D(T << i << endl;)
+  D(T.setf(ios::oct, ios::basefield);)
+  D(T << i << endl;)
+  D(T.unsetf(ios::showbase);)
+  D(T.setf(ios::dec, ios::basefield);)
+  D(T.setf(ios::left, ios::adjustfield);)
+  D(T.fill('0');)
+  D(T << "fill char: " << T.fill() << endl;)
+  D(T.width(10);)
+  T << i << endl;
+  D(T.setf(ios::right, ios::adjustfield);)
+  D(T.width(10);)
+  T << i << endl;
+  D(T.setf(ios::internal, ios::adjustfield);)
+  D(T.width(10);)
+  T << i << endl;
+  D(T << i << endl;) // Без width(10)
+
+  D(T.unsetf(ios::showpos);)
+  D(T.setf(ios::showpoint);)
+  D(T << "prec = " << T.precision() << endl;)
+  D(T.setf(ios::scientific, ios::floatfield);)
+  D(T << endl << f << endl;)
+  D(T.unsetf(ios::uppercase);)
+  D(T << endl << f << endl;)
+  D(T.setf(ios::fixed, ios::floatfield);)
+  D(T << f << endl;)
+  D(T.precision(20);)
+  D(T << "prec = " << T.precision() << endl;)
+  D(T << endl << f << endl;)
+  D(T.setf(ios::scientific, ios::floatfield);)
+  D(T << endl << f << endl;)
+  D(T.setf(ios::fixed, ios::floatfield);)
+  D(T << f << endl;)
+
+  D(T.width(10);)
+  T << s << endl;
+  D(T.width(40);)
+  T << s << endl;
+  D(T.setf(ios::left, ios::adjustfield);)
+  D(T.width(40);)
+  T << s << endl;
+} ///:~
+В данном примере создается трассировочный файл для анализа работы программы. Макрос D(a) средствами препроцессора преобразует a в отображаемую строку, после чего a выполняется как команда. Вся информация передается в трассировочный файл T. Результат выглядит так:
+int i = 47;
+float f = 2300114.414159;
+T.setf(ios::unitbuf);
+T.setf(ios::showbase);
+T.setf(ios::uppercase | ios::showpos);
+T << i << endl;
++47
+T.setf(ios::hex, ios::basefield);
+T << i << endl;
+0X2F
+T.setf(ios::oct, ios::basefield);
+T << i << endl;
+057
+T.unsetf(ios::showbase);
+T.setf(ios::dec, ios::basefield);
+T.setf(ios::left, ios::adjustfield);
+T.fill('0');
+T << "fill char: " << T.fill() << endl;
+fill char: 0
+T.width(10);
++470000000
+T.setf(ios::right, ios::adjustfield);
+T.width(10);
+0000000+47
+T.setf(ios::internal, ios::adjustfield);
+T.width(10);
++000000047
+T << i << endl;
++47
+T.unsetf(ios::showpos);
+T.setf(ios::showpoint);
+T << "prec = " << T.precision() << endl;
+prec = 6
+T.setf(ios::scientific, ios::floatfield);
+T << endl << f << endl;
+ 
+2.300114E+06
+T.unsetf(ios::uppercase);
+T << endl << f << endl;
+ 
+2.300114e+06
+T.setf(ios::fixed, ios::floatfield);
+T << f << endl;
+2300114.500000
+T.precision(20);
+T << "prec = " << T.precision() << endl;
+prec = 20
+T << endl << f << endl;
+ 
+2300114.50000000000000000000
+T.setf(ios::scientific, ios::floatfield);
+T << endl << f << endl;
+ 
+2.30011450000000000000e+06
+T.setf(ios::fixed, ios::floatfield);
+T << f << endl;
+2300114.50000000000000000000
+T.width(10);
+Is there any more?
+T.width(40);
+0000000000000000000000Is there any more?
+T.setf(ios::left, ios::adjustfield);
+T.width(40);
+Is there any more?0000000000000000000000

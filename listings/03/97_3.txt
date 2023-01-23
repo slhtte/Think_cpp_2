@@ -1,0 +1,14 @@
+//: C03:UhOh.cpp
+#include <string>
+#include <cassert>
+using namespace std;
+
+int main() {
+  // Ошибка: инициализация одиночным символом недопустима
+  //! string nothingDoing1('a');
+  // Ошибка: инициализация целочисленными кодами недопустима
+  //! string nothingDoing2(0x37);
+  // Следующий вариант допустим:
+  string okay(5, 'a');
+  assert(okay == string("aaaaa"));
+} ///:~

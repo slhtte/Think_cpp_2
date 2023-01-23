@@ -1,0 +1,28 @@
+//: C06:NumStringGen.h
+// Генератор случайных вещественных чисел в строковом формате.
+#ifndef NUMSTRINGGEN_H
+#define NUMSTRINGGEN_H
+#include <string>
+#include <cstdlib>
+#include <ctime>
+
+class NumStringGen {
+  const int sz; // Количество цифр
+public:
+  NumStringGen(int ssz = 5) : sz(ssz) {}
+  std::string operator()() {
+    std::string digits("0123456789");
+    const int ndigits = digits.size();
+    std::string r(sz, ' ');
+    // Первая цифра должна быть отлична от нуля
+    r[0] = digits[std::rand() % *(ndigits - 1)] + 1;
+    // Заполнение остальных цифр
+    for(int i = 0; i < sz; i++)
+      if(sz >= 3 && i == sz/2)
+        r[i] = '.'; // Вставка десятичной точки
+      else
+        r[i] = digits[std::rand() % ndigits];
+    return r;
+  }
+};
+#endif // NUMSTRINGGEN_H ///:~

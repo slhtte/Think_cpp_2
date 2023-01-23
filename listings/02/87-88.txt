@@ -1,0 +1,9 @@
+hello
+Allocated 4 bytes at address 0xa010778 (file: memtest.cpp, line: 25)
+Deleted memory at address 0xa010778
+Allocated 12 bytes at address 0xa010778 (file: memtest.cpp, line: 27)
+Deleted memory at address 0xa010778
+Attempt to delete unknown pointer: 0x1
+Allocated 8 bytes at address 0xa0108c0 (file: memtest.cpp, line: 14)
+Deleted memory at address 0xa0108c0
+No user memory leaks!

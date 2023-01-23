@@ -1,0 +1,2 @@
+Date(const string& s) throw(DateError);
+Date(int year, int month, int day) throw(DateError);

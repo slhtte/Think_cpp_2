@@ -1,0 +1,4 @@
+ForwardIterator search_n(ForwardIterator first, ForwardIterator last,
+  Size count, const T& value);
+ForwardIterator search_n(ForwardIterator first, ForwardIterator last,
+  Size count, const T& value, BinaryPredicate binary_pred);

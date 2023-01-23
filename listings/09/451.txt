@@ -1,0 +1,5 @@
+template<class Mixin1, class Mixin2, ..., class MixinK>
+class Subject : public Mixin1,
+                public Mixin2,
+                ...
+                public MixinK {...};

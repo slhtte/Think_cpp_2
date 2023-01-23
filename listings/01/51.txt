@@ -1,0 +1,6 @@
+template<class T> T stack<T>::pop() {
+  if(count == 0)
+    throw logic_error("stack underflow");
+  else
+    return data[--count];
+}

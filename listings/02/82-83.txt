@@ -1,0 +1,27 @@
+//: C03:Trace.h
+// Создание трассировочного файла
+#ifndef TRACE_H
+#define TRACE_H
+#include <fstream>
+
+#ifdef TRACEON
+ofstream TRACEFILE__("TRACE.OUT");
+#define cout TRACEFILE__
+#endif
+
+#endif // TRACE_H ///:~
+Простая тестовая программа для этого файла выглядит так:
+//: C03:Tracetst.cpp {-bor}
+#include <iostream>
+#include <fstream>
+#include "../require.h"
+using namespace std;
+
+#define TRACEON
+#include "Trace.h"
+
+int main() {
+  ifstream f("Tracetst.cpp");
+  assure(f, "Tracetst.cpp");
+  cout << f.rdbuf(); // Вывод содержимого файла в трассировочный файл
+} ///:~

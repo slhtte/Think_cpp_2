@@ -1,0 +1,4 @@
+// Внутри реализации binder1st<Op>
+typename Op::result_type
+operator()(const typename Op::second_argument_type& x)
+  const;

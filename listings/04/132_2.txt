@@ -1,0 +1,4 @@
+cout << "i = " << i << endl;
+cout << "f = " << f << endl;
+cout << "c = " << c << endl;
+cout << "buf = " << buf << endl;

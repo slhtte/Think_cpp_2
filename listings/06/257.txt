@@ -1,0 +1,4 @@
+template<typename T> void copy(T* begin, T* end, T* dest) {
+  while (begin != end)
+    *dest++ = *begin++;
+}

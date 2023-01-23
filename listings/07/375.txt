@@ -1,0 +1,4 @@
+// Предполагается, что "iterator" -- вложенный тип итератора
+typedef std::reverse_iterator<iterator> reverse_iterator;
+reverse_iterator rbegin() {return reverse_iterator(end());
+reverse_iterator rend()   {return reverse_iterator(begin());

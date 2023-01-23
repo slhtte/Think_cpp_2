@@ -1,0 +1,14 @@
+void testExceptions() {
+  try {
+    Date d(0,0,0);  // Недопустимая дата
+    fail_("Invalid date undetected in Date int ctor");
+  } catch (Date::DateError&) {
+    succeed_();
+  }
+  try {
+    Date d("");  // Недопустимая дата
+    fail_("Invalid date undetected in Date string ctor");
+  } catch (Date::DateError&) {
+    succeed_();
+  }
+}

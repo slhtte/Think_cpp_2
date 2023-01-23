@@ -1,0 +1,7 @@
+ostream& operator<<(ostream& os, const Date& d) {
+  char fillc = os.fill('0');
+  os << setw(2) << d.getMonth() << '-'
+     << setw(2) << d.getDay() << '-'
+     << setw(4) << setfill(fillc) << d.getYear();
+  return os;
+}

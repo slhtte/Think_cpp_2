@@ -1,0 +1,38 @@
+//: C04:Strfile.cpp
+// Потоковый ввод-вывод на примере файлов
+// Демонстрация различий между get() и getline()
+#include <fstream>
+#include <iostream>
+#include "../require.h"
+using namespace std;
+
+int main() {
+  const int sz = 100; // Размер буфера
+  char buf[sz];
+  {
+    ifstream in("Strfile.cpp"); // Чтение
+    assure(in, "Strfile.cpp"); // Проверка успешного открытия
+    ofstream out("Strfile.out"); // Запись
+    assure(out, "Strfile.out");
+    int i = 1; // Line counter
+
+    // Неудобный способ построчного ввода:
+    while(in.get(buf, sz)) { // \n остается в прочитанных данных
+      in.get(); // Отбросить следующий символ (\n)
+      cout << buf << endl; // Необходимо добавить \n
+      // Вывод в файл напоминает стандартный вывод:
+      out << i++ << ": " << buf << endl;
+    }
+  } // Деструкторы закрывают файлы in и out
+
+  ifstream in("Strfile.out");
+  assure(in, "Strfile.out");
+  // Более удобный способ построчного ввода:
+  while(in.getline(buf, sz)) { // Удаляет \n
+    char* cp = buf;
+    while(*cp != ':')
+      cp++;
+    cp += 2; // Пропустить ": "
+    cout << cp << endl; // Все равно необходимо добавить \n
+  }
+} ///:~

@@ -1,0 +1,8 @@
+template <class Arg, class Result>
+class pointer_to_unary_function
+: public unary_function<Arg, Result> {
+  Result (*fptr)(Arg); // Сохраняет указатель на функцию
+public:
+  pointer_to_unary_function(Result (*x)(Arg)) : fptr(x) {}
+  Result operator()(Arg x) const { return fptr(x); }
+};

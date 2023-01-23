@@ -1,0 +1,20 @@
+//: C08:VoidRTTI.cpp
+// RTTI и указатели на void
+//!#include <iostream>
+#include <typeinfo>
+using namespace std;
+
+class Stimpy {
+public:
+  virtual void happy() {}
+  virtual void joy() {}
+  virtual ~Stimpy() {}
+};
+
+int main() {
+  void* v = new Stimpy;
+  // Ошибка:
+//!  Stimpy* s = dynamic_cast<Stimpy*>(v);
+  // Ошибка:
+//!  cout << typeid(*v).name() << endl;
+} ///:~

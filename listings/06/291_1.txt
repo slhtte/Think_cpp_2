@@ -1,0 +1,4 @@
+void random_shuffle(RandomAccessIterator first,
+  RandomAccessIterator last);
+void random_shuffle(RandomAccessIterator first,
+  RandomAccessIterator last, RandomNumberGenerator& rand);

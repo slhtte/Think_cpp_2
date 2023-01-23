@@ -1,0 +1,11 @@
+//: C01: HasDestructor.cpp {0}
+struct HasDestructor {
+  ~HasDestructor(){}
+};
+ 
+void g();      //Функция g может запускать исключения
+
+void f() {
+   HasDestructor h;
+   g();
+} ///:~

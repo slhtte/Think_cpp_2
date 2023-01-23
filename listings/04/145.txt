@@ -1,0 +1,17 @@
+//: C04:Sbufget.cpp
+// Копирование файла в стандартный выходной поток
+#include <fstream>
+#include <iostream>
+#include "../require.h"
+using namespace std;
+
+int main() {
+  ifstream in("Sbufget.cpp");
+  assure(in);
+  streambuf& sb = *cout.rdbuf();
+  while (!in.get(sb).eof()) {
+    if (in.fail())          // Обнаружена пустая строка
+      in.clear();
+    cout << char(in.get()); // Обработка '\n'
+  }
+} ///:~

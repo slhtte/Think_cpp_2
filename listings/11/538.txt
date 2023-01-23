@@ -1,0 +1,23 @@
+//: C11:UnresponsiveUI.cpp
+// Блокировка пользовательского интерфейса
+// в однопоточном приложении.
+//{L} ZThread
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "zthread/Thread.h"
+using namespace std;
+using namespace ZThread;
+
+int main() {
+  cout << "Press <Enter> to quit:" << endl;
+  ifstream file("UnresponsiveUI.cpp");
+  string line;
+  while(getline(file, line)) {
+    cout << line << endl;
+    Thread::sleep(1000); // Время в миллисекундах
+  }
+  // Чтение ввода с консоли
+  cin.get();
+  cout << "Shutting down..." << endl;
+} ///:~

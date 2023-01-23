@@ -1,0 +1,5 @@
+template<typename Iterator>
+void copy(Iterator begin, Iterator end, Iterator dest) {
+  while (begin != end)
+    *begin++ = *dest++;
+}

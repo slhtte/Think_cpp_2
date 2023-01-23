@@ -1,0 +1,5 @@
+while(it != v.end()) {
+  cout << "adjacent_find: " << *it++
+    << ", " << *it++ << endl;
+  it = adjacent_find(it, v.end());
+}

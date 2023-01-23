@@ -1,0 +1,17 @@
+//: C01:MyError.cpp
+class MyError {
+  const char* const data;
+public:
+  MyError(const char* const msg = 0) : data (msg) {}
+};
+
+void f() {
+   // "Запускаем" объект исключения:
+   throw MyError("something bad happened");
+}
+
+int main() {
+   // Как вскоре будет показано,
+   // здесь должен находиться "блок try":
+  f();
+} ///:~

@@ -1,0 +1,11 @@
+int i;
+cin >> i;
+
+float f;
+cin >> f;
+
+char c;
+cin >> c;
+
+char buf[100];
+cin >> buf;

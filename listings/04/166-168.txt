@@ -1,0 +1,139 @@
+//: C04:Cppcheck.cpp
+// Создание заготовок файлов .h и .cpp с учетом требований стиля.
+// Существующие файлы проверяются на соответствие.
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <cstddef>
+#include "../require.h"
+using namespace std;
+
+bool startsWith(const string& base, const string& key) {
+  return base.compare(0, key.size(), key) == 0;
+}
+void cppCheck(string fileName) {
+  enum bufs { BASE, HEADER, IMPLEMENT, HLINE1, GUARD1,
+    GUARD2, GUARD3, CPPLINE1, INCLUDE, BUFNUM };
+  string part[BUFNUM];
+  part[BASE] = fileName;
+  // Поиск вхождений '.' в строке:
+  size_t loc = part[BASE].find('.');
+  if(loc != string::npos)
+    part[BASE].erase(loc); // Удаление расширения
+  // Преобразование к верхнему регистру:
+  for(size_t i = 0; i < part[BASE].size(); i++)
+    part[BASE][i] = toupper(part[BASE][i]);
+  // Создание имен файлов и обязательных строк:
+  part[HEADER] = part[BASE] + ".h";
+  part[IMPLEMENT] = part[BASE] + ".cpp";
+  part[HLINE1] = "//" ": " + part[HEADER];
+  part[GUARD1] = "#ifndef " + part[BASE] + "_H";
+  part[GUARD2] = "#define " + part[BASE] + "_H";
+  part[GUARD3] = "#endif // " + part[BASE] +"_H";
+  part[CPPLINE1] = string("//") + ": " + part[IMPLEMENT];
+  part[INCLUDE] = "#include \"" + part[HEADER] + "\"";
+  // Сначала пытаемся открыть существующие файлы:
+  ifstream existh(part[HEADER].c_str()),
+           existcpp(part[IMPLEMENT].c_str());
+  if(!existh) { // Файл не существует; создать его
+    ofstream newheader(part[HEADER].c_str());
+    assure(newheader, part[HEADER].c_str());
+    newheader << part[HLINE1] << endl
+      << part[GUARD1] << endl
+      << part[GUARD2] << endl << endl
+      << part[GUARD3] << endl;
+  } else { // Файл существует; проверить его содержимое
+    stringstream hfile; // Запись и чтение
+    ostringstream newheader; // Запись
+    hfile << existh.rdbuf();
+    // Убедиться в том, что первые три строки
+    // соответствуют стилевому стандарту:
+    bool changed = false;
+    string s;
+    hfile.seekg(0);
+    getline(hfile, s);
+    bool lineUsed = false;
+    // Вызов good() необходим для компилятора Microsoft (также см. далее)
+    for (int line = HLINE1; hfile.good() && line <= GUARD2;
+         ++line) {
+      if(startsWith(s, part[line])) {
+        newheader << s << endl;
+        lineUsed = true;
+        if (getline(hfile, s))
+          lineUsed = false;
+      } else {
+        newheader << part[line] << endl;
+        changed = true;
+        lineUsed = false;
+      }
+    }
+    // Копирование остатка файла
+    if (!lineUsed)
+      newheader << s << endl;
+    newheader << hfile.rdbuf();
+    // Проверка GUARD3
+    string head = hfile.str();
+    if(head.find(part[GUARD3]) == string::npos) {
+      newheader << part[GUARD3] << endl;
+      changed = true;
+    }
+    // При наличии изменений файл перезаписывается:
+    if(changed) {
+      existh.close();
+      ofstream newH(part[HEADER].c_str());
+      assure(newH, part[HEADER].c_str());
+      newH << "//@//\n"  // Признак модификации
+        << newheader.str();
+    }
+  }
+  if(!existcpp) { // Создание файла реализации
+    ofstream newcpp(part[IMPLEMENT].c_str());
+    assure(newcpp, part[IMPLEMENT].c_str());
+    newcpp << part[CPPLINE1] << endl
+      << part[INCLUDE] << endl;
+  } else { // Файл существует; проверить его содержимое
+    stringstream cppfile;
+    ostringstream newcpp;
+    cppfile << existcpp.rdbuf();
+    // Убедиться в том, что первые две строки
+    // соответствуют стилевому стандарту:
+    bool changed = false;
+    string s;
+    cppfile.seekg(0);
+    getline(cppfile, s);
+    bool lineUsed = false;
+    for (int line = CPPLINE1;
+         cppfile.good() && line <= INCLUDE;
+         ++line) {
+      if(startsWith(s, part[line])) {
+        newcpp << s << endl;
+        lineUsed = true;
+        if (getline(cppfile, s))
+          lineUsed = false;
+      } else {
+        newcpp << part[line] << endl;
+        changed = true;
+        lineUsed = false;
+      }
+    }
+    // Копирование остатка файла
+    if (!lineUsed)
+      newcpp << s << endl;
+    newcpp << cppfile.rdbuf();
+    // При наличии изменений файл перезаписывается:
+    if(changed){
+      existcpp.close();
+      ofstream newCPP(part[IMPLEMENT].c_str());
+      assure(newCPP, part[IMPLEMENT].c_str());
+      newCPP << "//@//\n"  // Признак модификации
+        << newcpp.str();
+    }
+  }
+}
+
+int main(int argc, char* argv[]) {
+  if(argc > 1)
+    cppCheck(argv[1]);
+  else
+    cppCheck("cppCheckTest.h");
+} ///:~

@@ -1,0 +1,59 @@
+//: C07:PriorityQueue7.cpp
+// Приоритетная очередь, создающая
+// отсортированный вектор по запросу
+#include <algorithm>
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include <iterator>
+#include <queue>
+#include <vector>
+using namespace std;
+
+template<class T, class Compare> class PQV {
+  vector<T> v;
+  Compare comp;
+public:
+  // Вызывать make_heap() не нужно;
+  // контейнер не содержит элементов
+  PQV(Compare cmp = Compare()) : comp(cmp) {}
+  void push(const T& x) {
+    // Занести элемент в конец:
+    v.push_back(x);
+    // Внести изменения в кучу:
+    push_heap(v.begin(), v.end(), comp);
+  }
+  void pop() {
+    // Перемещение верхнего элемента в последнюю позицию:
+    pop_heap(v.begin(), v.end(), comp);
+    // Удаление элемента:
+    v.pop_back();
+  }
+  const T& top() { return v.front(); }
+  bool empty() const { return v.empty(); }
+  int size() const { return v.size(); }
+  typedef vector<T> TVec;
+  TVec vector() {
+    TVec r(v.begin(), v.end());
+    // Остается отсортировать существующую кучу
+    sort_heap(r.begin(), r.end(), comp);
+    // Приведение к порядку приоритетной очереди:
+    reverse(r.begin(), r.end());
+    return r;
+  }
+};
+
+int main() {
+  PQV<int, less<int> > pqi;
+  srand(time(0));
+  for(int i = 0; i < 100; i++)
+    pqi.push(rand() % 25);
+  const vector<int>& v = pqi.vector();
+  copy(v.begin(), v.end(),
+    ostream_iterator<int>(cout, " "));
+  cout << "\n-----------\n";
+  while(!pqi.empty()) {
+    cout << pqi.top() << ' ';
+    pqi.pop();
+  }
+} ///:~

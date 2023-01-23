@@ -1,0 +1,6 @@
+void MyVector::push_back(int x) {
+   if (nextSlot == capacity)
+      grow();
+   assert(nextSlot < capacity);
+   data[nextSlot++] = x;
+}

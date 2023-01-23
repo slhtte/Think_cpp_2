@@ -1,0 +1,81 @@
+//: C03:Find.h
+#ifndef FIND_H
+#define FIND_H
+#include <cctype>
+#include <cstddef>
+#include <string>
+#include "../TestSuite/Test.h"
+using std::size_t;
+using std::string;
+using std::tolower;
+using std::toupper;
+
+// Создание копии s в верхнем регистре
+string upperCase(const string& s) {
+  string upper(s);
+  for(size_t i = 0; i < s.length(); ++i)
+    upper[i] = toupper(upper[i]);
+  return upper;
+}
+
+// Создание копии s в нижнем регистре
+string lowerCase(const string& s) {
+  string lower(s);
+  for(size_t i = 0; i < s.length(); ++i)
+    lower[i] = tolower(lower[i]);
+  return lower;
+}
+
+class FindTest : public TestSuite::Test {
+  string chooseOne;
+public:
+  FindTest() : chooseOne("Eenie, Meenie, Miney, Mo") {}
+  void testUpper() {
+    string upper = upperCase(chooseOne);
+    const string LOWER = "abcdefghijklmnopqrstuvwxyz";
+    test_(upper.find_first_of(LOWER) == string::npos);
+  }
+  void testLower() {
+    string lower = lowerCase(chooseOne);
+    const string UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    test_(lower.find_first_of(UPPER) == string::npos);
+  }
+  void testSearch() {
+    // Поиск с учетом регистра
+    size_t i = chooseOne.find("een");
+    test_(i == 8);
+    // Поиск в нижнем регистре:
+    string test = lowerCase(chooseOne);
+    i = test.find("een");
+    test_(i == 0);
+    i = test.find("een", ++i);
+    test_(i == 8);
+    i = test.find("een", ++i);
+    test_(i == string::npos);
+    // Поиск в верхнем регистре
+    test = upperCase(chooseOne);
+    i = test.find("EEN");
+    test_(i == 0);
+    i = test.find("EEN", ++i);
+    test_(i == 8);
+    i = test.find("EEN", ++i);
+    test_(i == string::npos);
+  }
+  void run() {
+    testUpper();
+    testLower();
+    testSearch();
+  }
+};
+#endif // FIND_H ///:~
+
+//: C03:Find.cpp
+//{L} ../TestSuite/Test
+#include "Find.h"
+#include "../TestSuite/Test.h"
+
+int main() {
+  FindTest t;
+  t.run();
+  return t.report();
+} ///:~

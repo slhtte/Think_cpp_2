@@ -1,0 +1,5 @@
+template <class Op, class T>
+binder1st<Op> bind1st(const Op& f, const T& val) {
+  typedef typename Op::first_argument_type Arg1_t;
+  return binder1st<Op>(f, Arg1_t(val));
+}

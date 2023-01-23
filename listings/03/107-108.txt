@@ -1,0 +1,74 @@
+//: C03:Rparse.h
+#ifndef RPARSE_H
+#define RPARSE_H
+#include <cstddef>
+#include <string>
+#include <vector>
+#include "../TestSuite/Test.h"
+using std::size_t;
+using std::string;
+using std::vector;
+
+class RparseTest : public TestSuite::Test {
+  // Вектор для хранения слов:
+  vector<string> strings;
+public:
+  void parseForData() {
+    // Символы ';' являются ограничителями
+    string s("now.;sense;make;to;going;is;This");
+    // Последний элемент строки:
+    int last = s.size();
+    // Начало текущего слова:
+    size_t current = s.rfind(';');
+    // Перебор строки в обратном направлении:
+    while(current != string::npos){
+      // Занесние слов в вектор.
+      // Переменная current инкрементируется перед копированием,
+      // чтобы предотвратить копирование ограничителя:
+      ++current;
+      strings.push_back(
+        s.substr(current, last - current));
+      // Пропустить найденный ограничитель
+      // и установить last в конец следующего слова:
+      current -= 2;
+      last = current + 1;
+      // Поиск следующего ограничителя
+      current = s.rfind(';', current);
+    }
+    // Получение первого слова, не имеющего
+    // префикса-ограничителя.
+    strings.push_back(s.substr(0, last));
+  }
+  void testData() {
+    // Тестирование в новом порядке:
+    test_(strings[0] == "This");
+    test_(strings[1] == "is");
+    test_(strings[2] == "going");
+    test_(strings[3] == "to");
+    test_(strings[4] == "make");
+    test_(strings[5] == "sense");
+    test_(strings[6] == "now.");
+    string sentence;
+    for(int i = 0; i < strings.size() - 1; i++)
+      sentence += strings[i] += " ";
+    // Вручную занести последнее слово, чтобы избежать
+    // сохранения лишнего пробела.
+    sentence += strings[strings.size() - 1];
+    test_(sentence == "This is going to make sense now.");
+  }
+  void run() {
+    parseForData();
+    testData();
+  }
+};
+#endif // RPARSE_H ///:~
+
+//: C03:Rparse.cpp
+//{L} ../TestSuite/Test
+#include "Rparse.h"
+
+int main() {
+  RparseTest t;
+  t.run();
+  return t.report();
+} ///:~

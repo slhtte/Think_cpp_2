@@ -1,0 +1,31 @@
+//: C03:SmallString2.cpp
+#include <string>
+#include <iostream>
+using namespace std;
+
+int main() {
+  string s1
+    ("What is the sound of one clam napping?");
+  string s2
+    ("Anything worth doing is worth overdoing.");
+  string s3("I saw Elvis in a UFO");
+  // Копирование первых 8 символов
+  string s4(s1, 0, 8);
+  cout << s4 << endl;
+  // Копирование 6 символов из середины источника
+  string s5(s2, 15, 6);
+  cout << s5 << endl;
+  // Копирование из середины в конец
+  string s6(s3, 6, 15);
+  cout << s6 << endl;
+  // Комбинированное копирование
+  string quoteMe = s4 + "that" +
+  // substr() копирует 10 символов начиная с элемента 20
+  s1.substr(20, 10) + s5 +
+  // substr() копирует 100 символов или остаток до конца
+  // строки, начиная с элемента 5.
+  "with" + s3.substr(5, 100) +
+  // Функция substr() также может копировать отдельные символы
+  s1.substr(37, 1);
+  cout << quoteMe << endl;
+} ///:~

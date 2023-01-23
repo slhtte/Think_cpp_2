@@ -1,0 +1,5 @@
+catch(...) {
+  cout << "an exception was thrown" << endl;
+  // Освобождение ресурсов
+  throw;
+}

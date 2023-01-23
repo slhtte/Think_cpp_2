@@ -1,0 +1,8 @@
+ForwardIterator remove(ForwardIterator first,
+  ForwardIterator last, const T& value);
+ForwardIterator remove_if(ForwardIterator first,
+  ForwardIterator last, Predicate pred);
+OutputIterator remove_copy(InputIterator first,
+  InputIterator last, OutputIterator result, const T& value);
+OutputIterator remove_copy_if(InputIterator first,
+  InputIterator last, OutputIterator result, Predicate pred);

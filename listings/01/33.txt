@@ -1,0 +1,3 @@
+catch(...) {
+  cout << "an exception was thrown" << endl;
+}

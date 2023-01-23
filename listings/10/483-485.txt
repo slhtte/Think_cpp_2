@@ -1,0 +1,114 @@
+//: C10:MulticastCommand.cpp {RunByHand}
+// Смягчение привязки к коду обработки событий
+// с применением паттерна Команда.
+#include <iostream>
+#include <vector>
+#include <string>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+
+// Иерархия классов для выполнения задач:
+class Task {
+public:
+  virtual void operation() = 0;
+};
+
+class TaskRunner {
+  static vector<Task*> tasks;
+  TaskRunner() {} // Синглетный класс
+  TaskRunner& operator=(TaskRunner&); // Запрет
+  TaskRunner(const TaskRunner&); // Запрет
+  static TaskRunner tr;
+public:
+  static void add(Task& t) { tasks.push_back(&t); }
+  static void run() {
+    vector<Task*>::iterator it = tasks.begin();
+    while(it != tasks.end())
+      (*it++)->operation();
+  }
+};
+
+TaskRunner TaskRunner::tr;
+vector<Task*> TaskRunner::tasks;
+
+class EventSimulator {
+  clock_t creation;
+  clock_t delay;
+public:
+  EventSimulator() : creation(clock()) {
+    delay = CLOCKS_PER_SEC/4 * (rand() % 20 + 1);
+    cout << "delay = " << delay << endl;
+  }
+  bool fired() {
+    return clock() > creation + delay;
+  }
+};
+
+// Источник асинхронных событий:
+class Button {
+  bool pressed;
+  string id;
+  EventSimulator e; // Для демонстрации
+public:
+  Button(string name) : pressed(false), id(name) {}
+  void press() { pressed = true; }
+  bool isPressed() {
+    if(e.fired()) press(); // Имитация события
+    return pressed;
+  }
+  friend ostream&
+  operator<<(ostream& os, const Button& b) {
+    return os << b.id;
+  }
+};
+
+// Объект Команды
+class CheckButton : public Task {
+  Button& button;
+  bool handled;
+public:
+  CheckButton(Button & b) : button(b), handled(false) {}
+  void operation() {
+    if(button.isPressed() && !handled) {
+      cout << button << " pressed" << endl;
+      handled = true;
+    }
+  }
+};
+
+// Процедуры, выполняющие основные вычисления. Должны
+// периодически прерываться для проверки состояния
+// кнопок или других событий:
+void procedure1() {
+  // Выполнение операций procedure1.
+  // ...
+  TaskRunner::run(); // Проверка всех событий
+}
+
+void procedure2() {
+  // Выполнение операций procedure2.
+  // ...
+  TaskRunner::run(); // Проверка всех событий
+}
+
+void procedure3() {
+  // Выполнение операций procedure3.
+  // ...
+  TaskRunner::run(); // Проверка всех событий
+}
+
+int main() {
+  srand(time(0)); // Раскрутка генератора случайных чисел
+  Button b1("Button 1"), b2("Button 2"), b3("Button 3");
+  CheckButton cb1(b1), cb2(b2), cb3(b3);
+  TaskRunner::add(cb1);
+  TaskRunner::add(cb2);
+  TaskRunner::add(cb3);
+  cout << "Control-C to exit" << endl;
+  while(true) {
+    procedure1();
+    procedure2();
+    procedure3();
+  }
+} ///:~

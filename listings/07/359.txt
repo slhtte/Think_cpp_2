@@ -1,0 +1,6 @@
+Read into vector: 8350
+Read into deque: 7690
+Indexing vector: 2360
+Indexing deque: 2480
+Iterating vector: 2470
+Iterating deque: 2410

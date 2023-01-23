@@ -1,0 +1,8 @@
+struct PolyBase const *
+struct PolyDer
+true
+true
+struct NonPolyBase const *
+struct NonPolyBase
+false
+int

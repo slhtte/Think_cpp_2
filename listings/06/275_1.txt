@@ -1,0 +1,5 @@
+template <class Arg, class Result>
+pointer_to_unary_function<Arg, Result>
+ptr_fun(Result (*fptr)(Arg)) {
+  return pointer_to_unary_function<Arg, Result>(fptr);
+}

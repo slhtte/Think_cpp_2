@@ -1,0 +1,12 @@
+cout << "i = ";
+cout << i;
+cout << "\n";
+cout << "f = ";
+cout << f;
+cout << "\n";
+cout << "c = ";
+cout << c;
+cout << "\n";
+cout << "buf = ";
+cout << buf;
+cout << "\n";

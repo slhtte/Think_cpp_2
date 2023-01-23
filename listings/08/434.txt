@@ -1,0 +1,8 @@
+Announce<0> constructor
+Announce<1> constructor
+Announce<2> constructor
+X::X()
+X::~X()
+Announce<2> destructor
+Announce<1> destructor
+Announce<0> destructor

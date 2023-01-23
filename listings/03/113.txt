@@ -1,0 +1,17 @@
+//: C03:Equivalence.cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+  string s2("That"), s1("This");
+  // В левой части находится литерал в кавычках,
+  // в правой части - объект string
+  if("That" == s2)
+    cout << "A match" << endl;
+    // В левой части находится объект string,
+    // а в правой - указатель на строку в стиле C,
+    // завершенную нуль-терминатором.
+    if(s1 != s2.c_str())
+      cout << "No match" << endl;
+} ///:~

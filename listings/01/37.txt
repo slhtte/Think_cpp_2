@@ -1,0 +1,8 @@
+constructing Trace #0
+constructing Trace #1
+constructing Trace #2
+constructing Trace #3
+destructing Trace #2
+destructing Trace #1
+destructing Trace #0
+caught 3
