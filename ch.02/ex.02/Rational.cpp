@@ -38,9 +38,7 @@ void Rational::__normalize()
 
 double Rational::__denormalize() const
 {
-	double tmp;
-	tmp = m * (pow(10, q));
-	return tmp;
+	return m * (pow(10, q));
 }
 
 Rational Rational::operator-() const
