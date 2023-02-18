@@ -101,18 +101,33 @@ std::ostream& operator<<(std::ostream& os, const Rational& r)
 
 std::istream& operator>>(std::istream& is, Rational& r)
 {
-	double m;
-	is >> m;
-	if (m == 0)
+	char type;
+	is >> type;
+	if (type == 'n')
 	{
-		r.m = 0;
-		r.q = 0;
+	    double m;
+	    is >> m;
+	    if (m == 0)
+	    {
+		    r.m = 0;
+		    r.q = 0;
+	    }
+	    else
+	    {
+	        r.m = m;
+	        is >> r.q;
+	        r.__normalize();
+	    }
 	}
-	else
+	else if (type == 'd')
 	{
-	    r.m = m;
-	    is >> r.q;
-	    r.__normalize();
+		int n;
+		int d;
+		is >> n;
+		is >> d;
+		Rational tmp(n, d);
+		r.m = tmp.m;
+		r.q = tmp.q;
 	}
 
 	return is;
