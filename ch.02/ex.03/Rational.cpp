@@ -129,6 +129,10 @@ std::istream& operator>>(std::istream& is, Rational& r)
 		r.m = tmp.m;
 		r.q = tmp.q;
 	}
+	else
+	{
+		throw Rational::Rational_Exception("invalid input");
+	}
 
 	return is;
 }
