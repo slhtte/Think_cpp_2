@@ -10,7 +10,7 @@
 using namespace std;
 using namespace TestSuite;
 
-void Suite::addTest(Test* t) throw(TestSuiteError) {
+void Suite::addTest(Test* t){
   // Verify test is valid and has a stream:
   if(t == 0)
     throw TestSuiteError("Null test in Suite::addTest");

@@ -7,7 +7,7 @@
 #define SUITE_H
 #include <vector>
 #include <stdexcept>
-#include "../TestSuite/Test.h"
+#include "Test.h"
 using std::vector;
 using std::logic_error;
 
@@ -35,7 +35,7 @@ public:
   long getNumFailed() const;
   const ostream* getStream() const { return osptr; }
   void setStream(ostream* osptr) { this->osptr = osptr; }
-  void addTest(Test* t) throw(TestSuiteError);
+  void addTest(Test* t);
   void addSuite(const Suite&);
   void run();  // Calls Test::run() repeatedly
   long report() const;
