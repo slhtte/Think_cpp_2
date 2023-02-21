@@ -51,6 +51,8 @@ public:
 		test_(r2 >= r5);
 		test_(r1 == r4);
 		test_(r1 != r2);
+
+		__test_exception();
 	}
 
 private:
@@ -82,6 +84,22 @@ private:
 		std::stringstream ss;
 		ss << res_istream;
 		return ss.str();
+	}
+
+	void __test_exception()
+	{
+		Rational tmp1{6, 8};
+		Rational tmp2{0, 1};
+
+		try
+		{
+			Rational tmp3 = tmp1 / tmp2;
+			fail_("undetected devide by zero");
+		}
+		catch (Rational::Rational_Exception&)
+		{
+			succeed_();
+		}
 	}
 };
 
