@@ -51,9 +51,6 @@ public:
 		test_(r2 >= r5);
 		test_(r1 == r4);
 		test_(r1 != r2);
-
-
-
 	}
 
 private:
