@@ -11,14 +11,34 @@
 #include "../TestSuite/Test.h"
 using namespace std;
 
+#ifdef NDEBUG
+  #define D(a) ((void)0)
+#else
+  #define D(a) cout << #a "= [" << a << "]" << endl;
+#endif
 // This function is only one with bugs
 int* binarySearch(int* beg, int* end, int what) {
+  D(what);
   while(end - beg != 1) {
-    if(*beg == what) return beg;
+    D(end - beg);
     int mid = (end - beg) / 2;
-    if(what <= beg[mid]) end = beg + mid;
-    else beg = beg + mid;
+    D(mid);
+    if(what >= beg[mid]) 
+    {
+      beg = beg + mid;
+//      end = beg + mid;
+      D(*beg);
+    }
+    else 
+    {
+      end = beg + mid;
+//      beg = beg + mid;
+      D(*end);
+    }
   }
+
+  if (*beg == what) return beg;
+
   return 0;
 }
 
@@ -65,8 +85,18 @@ class BinarySearchTest : public TestSuite::Test {
   }
 public:
   BinarySearchTest() { max = current = 0; }
+
+  void print() const
+  {
+    for (auto i = 0; i < SZ; ++i)
+    {
+      cout << "data[" << i << "] = " << data[i] << endl;
+    }
+  }
+
   void run() {
     setData();
+//    print();
     testInBound();
     testOutBounds();
     delete [] data;
