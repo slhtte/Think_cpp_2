@@ -17,13 +17,28 @@ string get_string(ifstream& file)
 	return result;
 }
 
+string to_lower(const string& s)
+{
+	string result{s};
+
+	for (int i = 0; i < s.size(); ++i)
+	{
+		result[i] = tolower(s[i]);
+	}
+
+	return result;
+}
+
 string replace_string(ifstream& file, const string& from, const string& to)
 {
 	string source(get_string(file));
 
-	size_t lookHere{0}, foundHere{0};
+	string lower_copy = to_lower(source);
 
-	while ((foundHere = source.find(from, lookHere)) != string::npos)
+	size_t lookHere{0}, foundHere{0};
+	string from_lower = to_lower(from);
+
+	while ((foundHere = lower_copy.find(from_lower, lookHere)) != string::npos)
 	{
 		source.replace(foundHere, from.size(), to);
 		lookHere = foundHere + to.size();
