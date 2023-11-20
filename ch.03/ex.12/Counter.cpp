@@ -6,7 +6,7 @@
 Counter::Counter(std::ifstream &file, const char format)
 {
 	this->format = format;
-	memset(arr_code, 0, ARR_SIZE);
+	memset(arr_code, 0, ARR_SIZE * sizeof (int));
 	std::string tmp;
 	while (getline(file, tmp))
 	{
@@ -27,7 +27,7 @@ void Counter::sort()
 		    continue;
 		}
 
-		sorting.emplace_back(Pair((int)i - OFFSET, arr_code[(int)i - OFFSET]));
+		sorting.emplace_back(Pair((int)i, arr_code[(int)i]));
 
 		if (sorting.size() == 1)
 		{
@@ -74,39 +74,39 @@ void Counter::report()
 	{
 		for (int i = 0; i < ARR_SIZE; ++i)
 		{
-			if ((char)i == ' ')
+			if ((char)(i + OFFSET) == ' ')
 			{
 				std::cout << "\tSpace: " << arr_code[i] << std::endl;
 				continue;
 			}
 
-			std::cout << '\t' << (char)i << ": " << arr_code[i] << std::	endl;
+			std::cout << '\t' << (char)(i + OFFSET) << ": " << arr_code[i] << std::	endl;
 		}
 	}
 	else if (format == 'A')
 	{
 		for (int i = sorting.size() - 1; i >= 0; --i)
 		{
-			if ((char)sorting[i].code == ' ')
+			if ((char)(sorting[i].code + OFFSET) == ' ')
 			{
 				std::cout << "\tSpace: " << sorting[i].matches << std::endl;
 				continue;
 			}
 
-			std::cout << '\t' << (char)sorting[i].code << ": " << sorting[i].matches << std::endl;
+			std::cout << '\t' << (char)(sorting[i].code + OFFSET) << ": " << sorting[i].matches << std::endl;
 		}
 	}
 	else
 	{
 		for (int i = 0; i < sorting.size(); ++i)
 		{
-			if ((char)sorting[i].code == ' ')
+			if ((char)(sorting[i].code + OFFSET) == ' ')
 			{
 				std::cout << "\tSpace: " << sorting[i].matches << std::endl;
 				continue;
 			}
 
-			std::cout << '\t' << (char)sorting[i].code << ": " << sorting[i].matches << std::endl;
+			std::cout << '\t' << (char)(sorting[i].code + OFFSET) << ": " << sorting[i].matches << std::endl;
 		}
 	}
 }

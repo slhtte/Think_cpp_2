@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
 	char format = argv[2][0];
 
-	if (format != 'S' || format != 'A' || format != 'D')
+	if (format != 'S' && format != 'A' && format != 'D')
 	{
 		require(false, "bad format\n");
 	}
