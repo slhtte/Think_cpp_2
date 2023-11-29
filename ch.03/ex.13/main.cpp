@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -12,7 +13,6 @@ int main(int argc, char *argv[])
 	std::string search(argv[2]);
 	std::vector<std::string> words;
 	std::string str;
-	size_t words_size = 0;
 	while (getline(in, str))
 	{
 		std::stringstream ss(str);
@@ -21,7 +21,6 @@ int main(int argc, char *argv[])
 		while (ss >> tmp)
 		{
 			words.push_back(tmp);
-			words_size += tmp.length();
 		}
 	}
 
@@ -33,7 +32,6 @@ int main(int argc, char *argv[])
 
 	size_t first_find = all_words.find(search);
 	int first_find_index = -1;
-	int first_not_find_index = -1;
 
 	if (first_find != std::string::npos)
 	{
@@ -43,7 +41,6 @@ int main(int argc, char *argv[])
 			if (first_find > sizes)
 			{
 			    sizes += words[i].size() + 1;
-			    first_not_find_index = i;
 			}
 			else if (first_find < sizes)
 			{
@@ -59,29 +56,69 @@ int main(int argc, char *argv[])
 	}
 
 	size_t first_rfind = all_words.rfind(search);
-	size_t first_rfind_index = 0;
-	int first_not_rfind_index
+	int first_rfind_index = -1;
 
 	if (first_rfind != std::string::npos)
 	{
-		size_t sizes = words_size - words[words.size() - 1].size() - 1;
-		for (int i = words.size() - 1; i >= 0; ++i)
+		if (first_rfind == first_find)
 		{
-			if (first_rfind < sizes)
-			{
-				sizes -= words[i].size() + 1;
-
-			}
-			else if (first_rfind >= sizes)
-			{
-				first_rfind_index = i;
-				break;			
-			}
+			first_rfind_index = first_find_index;
+		}
+		else
+		{
+		    size_t sizes = all_words.length();
+		    for (int i = words.size(); i >= 0; --i)
+		    {
+			    if (first_rfind < sizes)
+			    {
+				    sizes -= words[i - 1].length() + 1;
+			    }
+			    else if (first_rfind >= sizes)
+			    {
+				    first_rfind_index = i;
+				    break;			
+			    }
+		    }
 		}
 	}
 
-    std::string first_find_str;
-    std::string first_rfind_str;
-    std::string first_not_find_str;
-    std::string first_not_rfind_str;
+	int first_not_find_index = -1;
+	int first_not_rfind_index = -1;
+
+		for (int i = 0; i < words.size(); ++i)
+		{
+			if (i != first_find_index && i != first_rfind_index)
+			{
+				first_not_find_index = i;
+				break;
+			}
+		}
+
+		for (int i = words.size() - 1; i >= 0; --i)
+		{
+			if (i != first_rfind_index && i != first_find_index)
+			{
+				first_not_rfind_index = i;
+				break;
+			}
+		}
+
+	if (first_find == std::string::npos && first_not_find_index == -1)
+	{
+		std::cout << "Not found\n";
+		return 0;
+	}
+	
+	if (first_find != std::string::npos)
+	{
+		std::cout << "first find string:  [" << first_find_index << "] " << words[first_find_index] << std::endl
+		          << "first rfind string: [" << first_rfind_index << "] " << words[first_rfind_index] << std::endl;
+	}
+
+	if (first_not_find_index != -1)
+	{
+		std::cout << "first not find string:  [" << first_not_find_index << "] " << words[first_not_find_index] << std::endl
+                  << "first not rfind string: [" << first_not_rfind_index << "] " << words[first_not_rfind_index] << std::endl;		
+	}
+
 }
