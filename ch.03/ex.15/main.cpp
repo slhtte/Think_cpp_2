@@ -18,15 +18,14 @@ int main(int argc, char *argv[])
 	}
 
 	int i = 0;
-	i = res.find_first_of(NUM, i);
-	/*while ((i = res.find_first_of(NUM, i)) != std::string::npos);
+	while ((i = res.find_first_of(NUM, i)) != std::string::npos)
 	{
 	    res.insert(i, "$");
 
 	    int j = res.find(".", i + 1);
 	    j = res.find_first_not_of(NUM + ".", j + 1);
-	    i += j + 1;
-	}*/
+	    i = j + 1;
+	}
 
 	std::cout << res << std::endl;
 }
