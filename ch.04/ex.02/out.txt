@@ -1,0 +1,8 @@
+1 : #include <iostream>
+2 : #include <fstream>
+3 : #include <vector>
+4 : #include <string>
+5 : #include "../../require.h"
+13 : 	std::vector<std::string> v;
+19 : 	std::string s;
+29 : 			if (s.find(str) != std::string::npos)
