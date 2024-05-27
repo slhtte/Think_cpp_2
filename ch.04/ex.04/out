@@ -1,0 +1,19 @@
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.03/main.cpp:#include <iostream>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.03/main.cpp:#include <fstream>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.03/main.cpp:#include <sstream>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.03/main.cpp:#include "../../require.h"
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.02/out.txt:1 : #include <iostream>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.02/out.txt:2 : #include <fstream>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.02/out.txt:3 : #include <vector>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.02/out.txt:4 : #include <string>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.02/out.txt:5 : #include "../../require.h"
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.02/main.cpp:#include <iostream>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.02/main.cpp:#include <fstream>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.02/main.cpp:#include <vector>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.02/main.cpp:#include <string>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.02/main.cpp:#include "../../require.h"
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.01/main.cpp:#include <iostream>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.01/main.cpp:#include <fstream>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.01/main.cpp:#include <sstream>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.01/main.cpp:#include <cctype>
+/home/slhtte/Документы/Think_cpp_2/ch.04/ex.01/main.cpp:#include "../../require.h"
