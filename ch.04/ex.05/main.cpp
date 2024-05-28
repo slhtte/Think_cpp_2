@@ -16,5 +16,6 @@ public:
 
 int main()
 {
-
+	std::string s = "Hello";
+	std::cout << my_setw(s, 3) << std::endl;
 }
