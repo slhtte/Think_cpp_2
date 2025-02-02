@@ -1,0 +1,116 @@
+//: C07:BankTeller.cpp {RunByHand}
+// Моделирование банковского обслуживания
+// на базе очереди и имитации многопоточности
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include <iterator>
+#include <list>
+#include <queue>
+using namespace std;
+
+class Customer {
+  int serviceTime;
+public:
+  Customer() : serviceTime(0) {}
+  Customer(int tm) : serviceTime(tm) {}
+  int getTime() { return serviceTime; }
+  void setTime(int newtime) { serviceTime = newtime; }
+  friend ostream&
+  operator<<(ostream& os, const Customer& c) {
+    return os << '[' << c.serviceTime << ']';
+  }
+};
+
+class Teller {
+  queue<Customer>& customers;
+  Customer current;
+  enum { SLICE = 5 };
+  int ttime; // Остаток времени в кванте
+  bool busy; // Кассир обслуживает клиента?
+public:
+  Teller(queue<Customer>& cq)
+    : customers(cq), ttime(0), busy(false) {}
+  Teller& operator=(const Teller& rv) {
+    customers = rv.customers;
+    current = rv.current;
+    ttime = rv.ttime;
+    busy = rv.busy;
+    return *this;
+  }
+  bool isBusy() { return busy; }
+  void run(bool recursion = false) {
+    if(!recursion)
+      ttime = SLICE;
+    int servtime = current.getTime();
+    if(servtime > ttime) {
+      servtime -= ttime;
+      current.setTime(servtime);
+      busy = true; // Продолжать обслуживание текущего клиента
+      return;
+    }
+    if(servtime < ttime) {
+      ttime -= servtime;
+      if(!customers.empty()) {
+        current = customers.front();
+        customers.pop(); // Удаление из очереди
+        busy = true;
+        run(true); // Рекурсия
+      }
+      return;
+    }
+    if(servtime == ttime) {
+      // Клиент обслужен:
+      current = Customer(0);
+      busy = false;
+      return; // Завершение текущего кванта
+    }
+  }
+};
+
+// Наследование для обращения к защищенной реализации:
+class CustomerQ : public queue<Customer> {
+public:
+  friend ostream&
+  operator<<(ostream& os, const CustomerQ& cd) {
+    copy(cd.c.begin(), cd.c.end(),
+      ostream_iterator<Customer>(os, ""));
+    return os;
+  }
+};
+
+int main() {
+  CustomerQ customers;
+  list<Teller> tellers;
+  typedef list<Teller>::iterator TellIt;
+  tellers.push_back(Teller(customers));
+  srand(time(0)); // Раскрутка генератора случайных чисел
+  clock_t ticks = clock();
+  // Запуск имитации минимум на 5 секунд:
+  while(clock() < ticks + 5 * CLOCKS_PER_SEC) {
+    // Заполнение очереди случайным количеством клиентов
+    // со случайным временем обслуживания:
+    for(int i = 0; i < rand() % 5; i++)
+      customers.push(Customer(rand() % 15 + 1));
+    cout << '{' << tellers.size() << '}'
+      << customers << endl;
+    // Обслуживание клиентов:
+    for(TellIt i = tellers.begin();
+      i != tellers.end(); i++)
+      (*i).run();
+    cout << '{' << tellers.size() << '}'
+      << customers << endl;
+    // Если очередь слишком длинна, создаем нового кассира:
+    if(customers.size() / tellers.size() > 2)
+      tellers.push_back(Teller(customers));
+    // Если очередь слишком коротка, убираем кассира:
+    if(tellers.size() > 1 &&
+      customers.size() / tellers.size() < 2)
+      for(TellIt i = tellers.begin();
+        i != tellers.end(); i++)
+        if(!(*i).isBusy()) {
+          tellers.erase(i);
+          break; // Выход из цикла
+        }
+  }
+} ///:~

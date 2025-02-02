@@ -1,0 +1,28 @@
+//: C07:Stack1.cpp
+// Работа со стеком STL
+#include <fstream>
+#include <iostream>
+#include <list>
+#include <stack>
+#include <string>
+#include <vector>
+using namespace std;
+
+// Переставьте комментарии, чтобы использовать другую версию стека.
+//typedef stack<string> Stack1; // По умолчанию: deque<string>
+//typedef stack<string, vector<string> > Stack2;
+typedef stack<string, list<string> > Stack3;
+
+int main() {
+  ifstream in("Stack1.cpp");
+  Stack3 textlines; // Попробуйте использовать другие версии.
+  // Чтение файла и сохранение строк в стеке:
+  string line;
+  while(getline(in, line))
+    textlines.push(line + "\n");
+  // Вывод строк и их извлечение из стека:
+  while(!textlines.empty()) {
+    cout << textlines.top();
+    textlines.pop();
+  }
+} ///:~
