@@ -1,5 +1,5 @@
 //: C07:StreamIt.cpp
-// Итераторы потоков ввода и вывода
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -16,6 +16,6 @@ int main() {
   vector<string> vs;
   copy(begin, end, back_inserter(vs));
   copy(vs.begin(), vs.end(), out);
-//  *out++ = vs[0];
+  *out++ = vs[0];
   *out++ = "That's all, folks!";
 }
