@@ -1,5 +1,5 @@
 //: C07:Inserters.cpp
-// Различные типы итераторов вставки
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 #include <iostream>
 #include <vector>
 #include <deque>
@@ -33,11 +33,28 @@ template<class Cont>
 void midInsertion(Cont& ci) {
   typename Cont::iterator it = ci.begin();
   ++it; ++it; ++it;
+
+  cout << "it: " << &(*it) << endl;
+  
+  for (const typename Cont::value_type &val : ci)
+  {
+    cout << &val << endl;
+  }
+
   copy(a, a + sizeof(a)/(sizeof(typename Cont::value_type) * 2),
     inserter(ci, it));
   copy(ci.begin(), ci.end(),
     ostream_iterator<typename Cont::value_type>(
     cout, " "));
+  cout << endl;
+
+  cout << "it: " << &(*it) << endl;
+  
+  for (const typename Cont::value_type &val : ci)
+  {
+    cout << &val << endl;
+  }
+
   cout << endl;
 }
 
@@ -45,7 +62,7 @@ int main() {
   deque<int> di;
   list<int>  li;
   vector<int> vi;
-  // front_inserter() не может использоваться с вектором
+  // front_inserter() пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   frontInsertion(di);
   frontInsertion(li);
   di.clear();
@@ -55,5 +72,5 @@ int main() {
   backInsertion(li);
   midInsertion(vi);
   midInsertion(di);
-  midInsertion(li);
+  //midInsertion(li);
 } ///:~
