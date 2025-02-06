@@ -1,5 +1,5 @@
 //: C07:Stack1.cpp
-// Работа со стеком STL
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ STL
 #include <fstream>
 #include <iostream>
 #include <list>
@@ -8,19 +8,19 @@
 #include <vector>
 using namespace std;
 
-// Переставьте комментарии, чтобы использовать другую версию стека.
-//typedef stack<string> Stack1; // По умолчанию: deque<string>
-//typedef stack<string, vector<string> > Stack2;
-typedef stack<string, list<string> > Stack3;
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
+//typedef stack<string> Stack1; // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: deque<string>
+typedef stack<string, vector<string> > Stack1;
+//typedef stack<string, list<string> > Stack1;
 
 int main() {
   ifstream in("Stack1.cpp");
-  Stack3 textlines; // Попробуйте использовать другие версии.
-  // Чтение файла и сохранение строк в стеке:
+  Stack1 textlines; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ:
   string line;
   while(getline(in, line))
     textlines.push(line + "\n");
-  // Вывод строк и их извлечение из стека:
+  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ:
   while(!textlines.empty()) {
     cout << textlines.top();
     textlines.pop();
