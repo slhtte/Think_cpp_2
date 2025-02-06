@@ -47,6 +47,6 @@ int main() {
   generate_n(inserter(so, so.begin()),
     SZ, ObjGen());
   cout << "set:" << clock() - ticks << endl;
-  //print(lo);
-  //print(so);
+  print(lo);
+  print(so);
 } ///:~

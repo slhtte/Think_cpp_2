@@ -38,7 +38,7 @@ int main() {
   BS a(randBitset<SZ>()), b(randBitset<SZ>());
   // ѕреобразование битового пол€ в число:
   unsigned long ul = a.to_ulong();
-  cout << a << endl;
+  cout << ul << endl;
   // ѕреобразование строки в битовое поле:
   string cbits("111011010110111");
   cout << "as a string = " << cbits <<endl;
