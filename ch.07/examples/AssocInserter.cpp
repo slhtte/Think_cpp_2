@@ -1,7 +1,7 @@
 //: C07:AssocInserter.cpp
-// Итератор вставки делает возможным
-// использование алгоритмов fill_n() и generate_n()
-// с ассоциативными контейнерами.
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ fill_n() пїЅ generate_n()
+// пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 #include <iterator>
 #include <iostream>
 #include <algorithm>
@@ -12,9 +12,12 @@ using namespace std;
 
 int main() {
   set<int> s;
+  cout << s.size() << " "<< &(*s.begin()) << endl;
   fill_n(inserter(s, s.begin()), 10, 47);
+  cout << s.size() << " "<< &(*s.begin()) << endl;
   generate_n(inserter(s, s.begin()), 10,
     IncrGen<int>(12));
+  cout << s.size() << endl;
   copy(s.begin(), s.end(),
     ostream_iterator<int>(cout, "\n"));
   map<int, int> m;
