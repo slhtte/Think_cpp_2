@@ -1,5 +1,5 @@
 //: C07:MatrixMultiply.cpp
-// Умножение матриц с использованием объектов valarray
+// Г“Г¬Г­Г®Г¦ГҐГ­ГЁГҐ Г¬Г ГІГ°ГЁГ¶ Г± ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГҐГ¬ Г®ГЎГєГҐГЄГІГ®Гў valarray
 #include <cassert>
 #include <cstddef>
 #include <cmath>
@@ -8,7 +8,7 @@
 #include <valarray>
 using namespace std;
 
-// Вывод объекта valarray в виде матрицы
+// Г‚Г»ГўГ®Г¤ Г®ГЎГєГҐГЄГІГ  valarray Гў ГўГЁГ¤ГҐ Г¬Г ГІГ°ГЁГ¶Г»
 template<class T>
 void printMatrix(const valarray<T>& a, size_t n) {
   size_t siz = n*n;
@@ -20,16 +20,16 @@ void printMatrix(const valarray<T>& a, size_t n) {
   cout << endl;
 }
 
-// Умножение совместимых матриц в формате valarray
+// Г“Г¬Г­Г®Г¦ГҐГ­ГЁГҐ Г±Г®ГўГ¬ГҐГ±ГІГЁГ¬Г»Гµ Г¬Г ГІГ°ГЁГ¶ Гў ГґГ®Г°Г¬Г ГІГҐ valarray
 template<class T>
 valarray<T>
 matmult(const valarray<T>& a, size_t arows, size_t acols,
-        const valarray<T>& b, size_t brows, size_t bcols) {
+q        const valarray<T>& b, size_t brows, size_t bcols) {
   assert(acols == brows);
   valarray<T> result(arows * bcols);
   for(size_t i = 0; i < arows; ++i)
     for(size_t j = 0; j < bcols; ++j) {
-      // Внутреннее произведение строки a[i] и столбца b[j]
+      // Г‚Г­ГіГІГ°ГҐГ­Г­ГҐГҐ ГЇГ°Г®ГЁГ§ГўГҐГ¤ГҐГ­ГЁГҐ Г±ГІГ°Г®ГЄГЁ a[i] ГЁ Г±ГІГ®Г«ГЎГ¶Г  b[j]
       valarray<T> row = a[slice(acols*i, acols, 1)];
       valarray<T> col = b[slice(j, brows, bcols)];
       result[i*bcols + j] = (row * col).sum();
